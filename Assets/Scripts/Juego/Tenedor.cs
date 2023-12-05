@@ -4,40 +4,56 @@ using UnityEngine;
 
 public class Tenedor : MonoBehaviour
 {
-    [Header("Destruir Score")]
     public PuntuacionManager puntuacionManager;
+    public bool activarTap;
+
+    [Header("Mover")]
     public Animator ani;
     public Transform pivotDestroy;
-    public bool activarTap;
+    public float numero;
+
     [Header("Temblor Camara")]
     public Transform camara;
     public float temblorDuracion;
-    public float esperarMenu;
 
     BoxCollider2D box2D;
     float temblorCantidad = 0.2f;
     bool temblor;
 
+
     void Start()
     {
+        StartCoroutine(Activar());
         box2D = gameObject.GetComponent<BoxCollider2D>();
     }
     void Update()
-    {
+    {            
         if (activarTap)
         {
+            GameObject[] scores = GameObject.FindGameObjectsWithTag("Score");
+            if (scores.Length == 0)
+            {
+                activarTap = false;
+            }
+
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
             {
-                pivotDestroy.position -= new Vector3(0, 2.2f, 0);
+                pivotDestroy.position -= new Vector3(0, numero, 0);
+                StartCoroutine(Animacion());
+                StartCoroutine(Tembror());
+                puntuacionManager.SumarPuntaje();
             }
             if (Input.GetMouseButtonDown(0))
             {
-                pivotDestroy.position -= new Vector3(0, 2.2f, 0);
+                pivotDestroy.position -= new Vector3(0, numero, 0);
                 StartCoroutine(Animacion());
+                StartCoroutine(Tembror());
+                puntuacionManager.SumarPuntaje();
             }
 
             box2D.enabled = true;
         }
+
     }
 
     IEnumerator Tembror()
@@ -66,20 +82,20 @@ public class Tenedor : MonoBehaviour
     IEnumerator Animacion()
     {
         ani.SetBool("Activar", true);
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.3f);
         ani.SetBool("Activar", false);
     }
-
-    void Temblando()
+    IEnumerator Activar()
     {
-        StartCoroutine(Tembror());
+        yield return new WaitForSeconds(0.5f);
+        activarTap = true;
     }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Score"))
         {
             Destroy(collision.gameObject);
-            puntuacionManager.SumarPuntaje();
         }
     }
 }

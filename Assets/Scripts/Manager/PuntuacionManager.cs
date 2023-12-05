@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 public class PuntuacionManager : MonoBehaviour
 {
-    public TextMeshProUGUI texto;
+    public int nivel;
+    public bool masDificultad;
 
     public void Start()
     {
@@ -12,13 +12,10 @@ public class PuntuacionManager : MonoBehaviour
         DataManager.Save();
     }
 
-    private void Update()
-    {
-        texto.text = DataManager.data.puntuacion.ToString();
-    }
-
     public void SumarPuntaje()
     {
+        nivel++;
+        masDificultad = true;
         DataManager.data.puntuacion += 1;
         DataManager.Save();
     }

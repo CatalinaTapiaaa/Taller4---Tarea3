@@ -5,11 +5,16 @@ using UnityEngine.UI;
 
 public class NivelManager : MonoBehaviour
 {
-    public GameObject[] scores;
+    public List<GameObject> scores = new List<GameObject>();
     public Transform pivotSpawn;
     public Transform pivotDestroy;
     public PuntuacionManager puntuacionManager;
-    public Tenedor Tenedor;
+
+    [Header("Barra Temporizador")]
+    public Image barra;
+    public float velocidadTiempo;
+    public bool temporizador;
+    float t = 10;
 
     [Header("Mover")]
     public AnimationCurve curve;
@@ -22,10 +27,6 @@ public class NivelManager : MonoBehaviour
     public GameObject tenedor;
     public bool desactivar;
 
-    void Start()
-    {
-        Instantiate(scores[0], pivotSpawn.position, Quaternion.identity);
-    }
     void Update()
     {
         if (!abajo)
@@ -42,14 +43,27 @@ public class NivelManager : MonoBehaviour
             Vector3 pos = Vector3.SmoothDamp(a, b, ref velocity, smoothTime);
             transform.position = pos;
         }
+
+        if (temporizador)
+        {
+            t -= velocidadTiempo * Time.deltaTime;
+
+            if (t <= 0)
+            {
+                Derrota();
+                temporizador = false;
+            }
+        }     
+        barra.fillAmount = t / 10;
     }
+
 
     public void Victoria(string direccion)
     {
         Debug.Log("Victoria");
         pivotSpawn.position += new Vector3(0, 2.2f, 0);
         puntuacionManager.SumarPuntaje();
-        int aleatorio = Random.Range(0, scores.Length);
+        int aleatorio = Random.Range(0, scores.Count);
 
         if (direccion == "Derecha")
         {
@@ -84,14 +98,17 @@ public class NivelManager : MonoBehaviour
             Instantiate(scores[aleatorio], pivotSpawn.position, Quaternion.identity);
         }
 
+        t = 10;
         desactivar = false;
     }  
     public void Derrota()
     {
         Debug.Log("Derrota");
         StartCoroutine(Satisfaccion());
+
         abajo = true;
         desactivar = false;
+        temporizador = false;
     }
     IEnumerator Satisfaccion()
     {
@@ -99,7 +116,5 @@ public class NivelManager : MonoBehaviour
         yield return new WaitForSeconds(0.15f);
         pivotDestroy.position += new Vector3(0, 4.4f, 0);
         tenedor.SetActive(true);
-        yield return new WaitForSeconds(1f);
-        Tenedor.activarTap = true;
     }
 }

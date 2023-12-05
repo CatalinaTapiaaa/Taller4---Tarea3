@@ -42,9 +42,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Tenedor
+    uniqueID: 2926575663
+    locked: 0
   - name: Particula
     uniqueID: 1571526937
     locked: 0
-  - name: Interface
+  - name: Canvas Interface
     uniqueID: 2772176363
+    locked: 0
+  - name: Canvas Titulo
+    uniqueID: 87571693
+    locked: 0
+  - name: Canvas Final
+    uniqueID: 410885709
     locked: 0
