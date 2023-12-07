@@ -12,6 +12,7 @@ public class UI : MonoBehaviour
     [Header("Start")]
     public NivelManager nivelManager;
     public Animator aniStart;
+    public Transform pivotSpawn;
     [Header("Replay")]
     public Animator aniReplay;
     //[Header("Credits")]
@@ -28,6 +29,7 @@ public class UI : MonoBehaviour
 
     public void BotonStart()
     {
+        pivotSpawn.position += new Vector3(0, 0.8293f, 0);
         int aleatorio = Random.Range(0, nivelManager.scores.Count);
         Instantiate(nivelManager.scores[aleatorio], nivelManager.pivotSpawn.position, Quaternion.identity);
         nivelManager.temporizador = true;

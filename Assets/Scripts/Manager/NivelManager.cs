@@ -61,7 +61,7 @@ public class NivelManager : MonoBehaviour
     public void Victoria(string direccion)
     {
         Debug.Log("Victoria");
-        pivotSpawn.position += new Vector3(0, 2.2f, 0);
+        pivotSpawn.position += new Vector3(0, 1.08f, 0);
         puntuacionManager.SumarPuntaje();
         int aleatorio = Random.Range(0, scores.Count);
 
@@ -114,7 +114,7 @@ public class NivelManager : MonoBehaviour
     {
         panArriba.SetActive(true);
         yield return new WaitForSeconds(0.15f);
-        pivotDestroy.position += new Vector3(0, 4.4f, 0);
+        pivotDestroy.position += new Vector3(0, 3f, 0);
         tenedor.SetActive(true);
     }
 }
