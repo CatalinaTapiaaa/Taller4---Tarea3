@@ -7,6 +7,7 @@ public class PuntuacionManager : MonoBehaviour
 {
     public TextMeshProUGUI textArriba;
     public TextMeshProUGUI textAbajo;
+    public Animator ani;
     [Space]
     public int nivel;
     public bool masDificultad;
@@ -30,6 +31,7 @@ public class PuntuacionManager : MonoBehaviour
         masDificultad = true;
         DataManager.data.puntuacionAbajo += 1;
         DataManager.Save();
+        StartCoroutine(aniAbajo());
     }
     public void SumarPuntajeArriba()
     {
@@ -37,5 +39,20 @@ public class PuntuacionManager : MonoBehaviour
         masDificultad = true;
         DataManager.data.puntuacionArriba += 1;
         DataManager.Save();
+        StartCoroutine(aniArriba());
+    }
+
+    IEnumerator aniAbajo()
+    {
+        ani.SetBool("Abajo", true);
+        yield return new WaitForSeconds(0.30f);
+        ani.SetBool("Abajo", false);
+    }
+
+    IEnumerator aniArriba()
+    {
+        ani.SetBool("Arriba", true);
+        yield return new WaitForSeconds(0.30f);
+        ani.SetBool("Arriba", false);
     }
 }

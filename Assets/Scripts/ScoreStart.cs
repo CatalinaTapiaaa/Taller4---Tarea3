@@ -32,6 +32,7 @@ public class ScoreStart : MonoBehaviour
                     panelTiulo.SetBool("Desactivar", true);
                     camara.SetBool("Estatico", true);
 
+                    nivelManager.FeedBack();
                     nivelManager.pivotMover.position += new Vector3(0, 0.785f, 0);
                     Instantiate(nivelManager.scores[aleatorio], nivelManager.pivotMover.position, Quaternion.identity);
 

@@ -5,7 +5,6 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 3
     m_TransformParent: {fileID: 3577002965675687958}
     m_Modifications:
     - target: {fileID: -7871556540511652807, guid: 7f261ceeac752854d952d5e8d98afc6e, type: 3}
@@ -14,15 +13,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7871556540511652807, guid: 7f261ceeac752854d952d5e8d98afc6e, type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7871556540511652807, guid: 7f261ceeac752854d952d5e8d98afc6e, type: 3}
       propertyPath: m_Color.g
-      value: 0.58431375
+      value: 0.49803925
       objectReference: {fileID: 0}
     - target: {fileID: -7871556540511652807, guid: 7f261ceeac752854d952d5e8d98afc6e, type: 3}
       propertyPath: m_Color.r
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7871556540511652807, guid: 7f261ceeac752854d952d5e8d98afc6e, type: 3}
       propertyPath: m_SortingOrder
@@ -34,7 +33,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8742538545776668643, guid: 7f261ceeac752854d952d5e8d98afc6e, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8742538545776668643, guid: 7f261ceeac752854d952d5e8d98afc6e, type: 3}
       propertyPath: m_LocalScale.x
@@ -89,18 +88,10 @@ PrefabInstance:
       value: -90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
   m_SourcePrefab: {fileID: 7243324766535440047, guid: 7f261ceeac752854d952d5e8d98afc6e, type: 3}
 --- !u!1 &672658733244195237 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3888481672020999207, guid: 7f261ceeac752854d952d5e8d98afc6e, type: 3}
-  m_PrefabInstance: {fileID: 4853918362767975036}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &4183608158883302815 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8742538545776668643, guid: 7f261ceeac752854d952d5e8d98afc6e, type: 3}
   m_PrefabInstance: {fileID: 4853918362767975036}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5257861589254795253
@@ -108,20 +99,19 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -7871556540511652807, guid: d607ed950b13d8c41ad80dd8c1d16b0d, type: 3}
       propertyPath: m_Color.b
-      value: 0.8745099
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7871556540511652807, guid: d607ed950b13d8c41ad80dd8c1d16b0d, type: 3}
       propertyPath: m_Color.g
-      value: 0.9294118
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7871556540511652807, guid: d607ed950b13d8c41ad80dd8c1d16b0d, type: 3}
       propertyPath: m_Color.r
-      value: 0.97647065
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -3888481672020999207, guid: d607ed950b13d8c41ad80dd8c1d16b0d, type: 3}
       propertyPath: m_Name
@@ -192,21 +182,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 8742538545776668643, guid: d607ed950b13d8c41ad80dd8c1d16b0d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4183608158883302815}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: -3888481672020999207, guid: d607ed950b13d8c41ad80dd8c1d16b0d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4619567960456768957}
-    - targetCorrespondingSourceObject: {fileID: -3888481672020999207, guid: d607ed950b13d8c41ad80dd8c1d16b0d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2992839770769527298}
-    - targetCorrespondingSourceObject: {fileID: -3888481672020999207, guid: d607ed950b13d8c41ad80dd8c1d16b0d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 393476429076582893}
   m_SourcePrefab: {fileID: 7243324766535440047, guid: d607ed950b13d8c41ad80dd8c1d16b0d, type: 3}
 --- !u!1 &215886665990908972 stripped
 GameObject:
@@ -223,25 +198,6 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -258,24 +214,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.213, y: 1}
   m_EdgeRadius: 0
---- !u!114 &2992839770769527298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 215886665990908972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0cf7091c1d696a45899f7862310bab7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameObjectManager: {fileID: 0}
-  nivel: {fileID: 0}
-  swipe: {fileID: 0}
-  frecha: {fileID: 672658733244195237}
-  direccion: Abajo
-  desactivar: 0
 --- !u!95 &393476429076582893
 Animator:
   serializedVersion: 5
@@ -296,6 +234,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &2992839770769527298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215886665990908972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0cf7091c1d696a45899f7862310bab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObjectManager: {fileID: 0}
+  nivel: {fileID: 0}
+  swipe: {fileID: 0}
+  frecha: {fileID: 672658733244195237}
+  direccion: Abajo
+  desactivar: 0
 --- !u!4 &3577002965675687958 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8742538545776668643, guid: d607ed950b13d8c41ad80dd8c1d16b0d, type: 3}

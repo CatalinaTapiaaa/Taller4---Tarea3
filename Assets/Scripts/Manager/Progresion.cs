@@ -8,6 +8,7 @@ public class Progresion : MonoBehaviour
     public PuntuacionManager puntuacion;
 
     NivelManager nivelManager;
+    bool maxVelocidad;
 
     void Start()
     {
@@ -21,14 +22,13 @@ public class Progresion : MonoBehaviour
             //Derecha
             if (puntuacion.nivel == 3)
             {
-                nivelManager.scores.Add(scores[0]);             
+                nivelManager.scores.Add(scores[0]);
             }
             //Izquierda
             if (puntuacion.nivel == 4)
             {
                 nivelManager.scores.Add(scores[1]);
             }
-
             //Arriba Derecha
             if (puntuacion.nivel == 8)
             {
@@ -39,7 +39,6 @@ public class Progresion : MonoBehaviour
             {
                 nivelManager.scores.Add(scores[3]);
             }
-
             //Abajo Derecha
             if (puntuacion.nivel == 10)
             {
@@ -49,6 +48,16 @@ public class Progresion : MonoBehaviour
             if (puntuacion.nivel == 11)
             {
                 nivelManager.scores.Add(scores[5]);
+            }
+
+            if (!maxVelocidad)
+            {
+                if (nivelManager.velocidadTiempo >= 20)
+                {
+                    maxVelocidad = true;
+                }
+
+                nivelManager.velocidadTiempo += 0.5f;
             }
 
             puntuacion.masDificultad = false;

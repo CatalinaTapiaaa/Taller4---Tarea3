@@ -6,30 +6,27 @@ using UnityEngine.SceneManagement;
 
 public class UI : MonoBehaviour
 {
-    public TextMeshProUGUI[] puntuacionActual;
-    public TextMeshProUGUI[] puntuacionMax;
-
-    [Header("Start")]
     public NivelManager nivelManager;
-    public Animator aniStart;
-    public Transform pivotSpawn;
-    [Header("Replay")]
-    public Animator aniReplay;
-    //[Header("Credits")]
+    [Header("Text")]
+    public TextMeshProUGUI puntuacionActual;
+    public TextMeshProUGUI puntuacionMaxStart;
+    public TextMeshProUGUI puntuacionMaxFinal;
+    [Header("Animacion")]
+    public Animator aniTransicion;
 
-
+    void Start()
+    {
+        puntuacionMaxStart.text = DataManager.data.puntuacionArriba.ToString("BEST SCORE : 0");
+    }
     void Update()
     {
-        
+        puntuacionActual.text = DataManager.data.puntuacionArriba.ToString();
+        puntuacionMaxFinal.text = DataManager.data.puntuacionArriba.ToString();
     }
 
-    public void BotonStart()
+    public void BotonCredits()
     {
-        pivotSpawn.position += new Vector3(0, 0.8293f, 0);
-        int aleatorio = Random.Range(0, nivelManager.scores.Count);
-        Instantiate(nivelManager.scores[aleatorio], nivelManager.pivotMover.position, Quaternion.identity);
-        nivelManager.temporizador = true;
-        aniStart.SetBool("Desactivar", true);
+        StartCoroutine(Credits());
     }
     public void BotonReplay()
     {
@@ -38,8 +35,14 @@ public class UI : MonoBehaviour
 
     IEnumerator Replay()
     {
-        aniReplay.SetBool("Activar", true);
-        yield return new WaitForSeconds(0.30f);
+        aniTransicion.SetBool("Activar", true);
+        yield return new WaitForSeconds(0.15f);
         SceneManager.LoadScene(1);
+    }
+    IEnumerator Credits()
+    {
+        aniTransicion.SetBool("Activar", true);
+        yield return new WaitForSeconds(0.15f);
+        SceneManager.LoadScene(2);
     }
 }

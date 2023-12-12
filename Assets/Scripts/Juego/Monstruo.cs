@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Monstruo : MonoBehaviour
 {
@@ -9,11 +10,16 @@ public class Monstruo : MonoBehaviour
 
     [Header("Comer")]
     public LayerMask layerMask;
+    public GameObject particula;
     public Transform pivotComer;
     public Transform pivotScore;
     public Animator aniBoca;
     public Animator aniComida;
     public float velocidad;
+
+    [Header("Barra Temporizador")]
+    public Image barra;
+    public float velocidadTiempo;
 
     [Header("Temblor Camara")]
     public Transform camara;
@@ -24,7 +30,8 @@ public class Monstruo : MonoBehaviour
 
     RaycastHit2D hit;
     float temblorCantidad = 0.2f;
-    bool temblor;
+    bool temblor, temporizador;
+    float t = 10;
 
     void Update()
     {
@@ -40,6 +47,7 @@ public class Monstruo : MonoBehaviour
 
         if (activarTap)
         {
+            temporizador = true;
             aniBoca.SetBool("Idle", true);
             GameObject[] scores = GameObject.FindGameObjectsWithTag("Score");
             if (scores.Length == 0)
@@ -50,15 +58,35 @@ public class Monstruo : MonoBehaviour
 
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
             {
-                StartCoroutine(Tembror());
+                Temblor();
+                StartCoroutine(Comer());
+                Destroy(hit.collider.gameObject);
+                puntuacionManager.SumarPuntajeArriba();
+                Instantiate(particula, pivotScore.position, Quaternion.identity);
             }
             if (Input.GetMouseButtonDown(0))
             {
                 Temblor();
                 StartCoroutine(Comer());
                 Destroy(hit.collider.gameObject);
+                puntuacionManager.SumarPuntajeArriba();
+                Instantiate(particula, pivotScore.position, Quaternion.identity);
             }
         }
+
+        if (temporizador)
+        {
+            t -= velocidadTiempo * Time.deltaTime;
+
+            if (t <= 0)
+            {
+                temporizador = false;
+                activarTap = false;
+                canvasFinal.SetActive(true);
+            }
+        }
+
+        barra.fillAmount = t / 10;
     }
 
     IEnumerator Tembror()
@@ -84,6 +112,7 @@ public class Monstruo : MonoBehaviour
         camara.localPosition = originalPos;
         temblor = false;
     }
+
     IEnumerator Comer()
     {
         aniBoca.SetBool("Comer", true);
@@ -95,11 +124,15 @@ public class Monstruo : MonoBehaviour
     {
         hit.collider.transform.position = pivotScore.position;
         hit.collider.transform.parent = pivotScore;
-        hit.collider.transform.localPosition = Vector3.zero;
+        if (activarTap)
+        {
+            hit.collider.transform.localPosition = Vector3.zero;
+        }
         aniComida.SetBool("Activar", true);
         yield return new WaitForSeconds(0.25f);
         aniComida.SetBool("Activar", false);
     }
+
     public void Comida()
     {
         StartCoroutine(AparecerComida());
@@ -108,5 +141,5 @@ public class Monstruo : MonoBehaviour
     void Temblor()
     {
         StartCoroutine(Tembror());
-    }
+    }    
 }
