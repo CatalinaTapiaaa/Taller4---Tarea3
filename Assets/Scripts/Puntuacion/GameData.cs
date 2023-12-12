@@ -5,17 +5,26 @@ using UnityEngine;
 [System.Serializable]
 public class GameData
 {
-	public int puntuacion;
-	public int puntuacionMaxima;
+	public int puntuacionArriba;
+	public int puntuacionAbajo;
+
+	public int puntuacionMaximaArriba;
+	public int puntuacionMaximaAbajo;
 
 	public GameData()
 	{
-		puntuacion = 0;
-		puntuacionMaxima = 0;
+		puntuacionArriba = 0;
+		puntuacionAbajo = 0;
+		puntuacionMaximaArriba = 0;
+	    puntuacionMaximaAbajo = 0;
 
-		if (puntuacion > puntuacionMaxima)
+		if (puntuacionArriba > puntuacionMaximaArriba)
         {
-			puntuacionMaxima = puntuacion;
+			puntuacionMaximaArriba = puntuacionArriba;
+		}
+		if (puntuacionAbajo > puntuacionMaximaAbajo)
+		{
+			puntuacionMaximaAbajo = puntuacionAbajo;
 		}
 	}
 }

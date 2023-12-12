@@ -20,18 +20,14 @@ public class UI : MonoBehaviour
 
     void Update()
     {
-        puntuacionMax[0].text = DataManager.data.puntuacionMaxima.ToString();
-        puntuacionMax[1].text = DataManager.data.puntuacionMaxima.ToString();
-
-        puntuacionActual[0].text = DataManager.data.puntuacion.ToString();
-        puntuacionActual[1].text = DataManager.data.puntuacion.ToString();
+        
     }
 
     public void BotonStart()
     {
         pivotSpawn.position += new Vector3(0, 0.8293f, 0);
         int aleatorio = Random.Range(0, nivelManager.scores.Count);
-        Instantiate(nivelManager.scores[aleatorio], nivelManager.pivotSpawn.position, Quaternion.identity);
+        Instantiate(nivelManager.scores[aleatorio], nivelManager.pivotMover.position, Quaternion.identity);
         nivelManager.temporizador = true;
         aniStart.SetBool("Desactivar", true);
     }

@@ -7,52 +7,58 @@ public class Monstruo : MonoBehaviour
     public PuntuacionManager puntuacionManager;
     public bool activarTap;
 
-    [Header("Mover")]
-    public Animator ani;
-    public Transform pivotDestroy;
+    [Header("Comer")]
+    public LayerMask layerMask;
+    public Transform pivotComer;
+    public Transform pivotScore;
+    public Animator aniBoca;
+    public Animator aniComida;
+    public float velocidad;
 
     [Header("Temblor Camara")]
     public Transform camara;
     public float temblorDuracion;
 
-    BoxCollider2D box2D;
+    [Header("Panel")]
+    public GameObject canvasFinal;
+
+    RaycastHit2D hit;
     float temblorCantidad = 0.2f;
     bool temblor;
 
-
-    void Start()
-    {
-        StartCoroutine(Activar());
-        box2D = gameObject.GetComponent<BoxCollider2D>();
-    }
     void Update()
-    {            
+    {
+        hit = Physics2D.Raycast(pivotComer.position, -pivotComer.up, 100, layerMask);
+        if (hit.collider != null)
+        {
+            Debug.DrawRay(pivotComer.position, Vector2.down * hit.distance, Color.blue);
+        }
+        else
+        {
+
+        }
+
         if (activarTap)
         {
+            aniBoca.SetBool("Idle", true);
             GameObject[] scores = GameObject.FindGameObjectsWithTag("Score");
             if (scores.Length == 0)
             {
                 activarTap = false;
-            }
+                canvasFinal.SetActive(true);
+            }           
 
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
             {
-                pivotDestroy.position -= new Vector3(0, numero, 0);
-                StartCoroutine(Animacion());
                 StartCoroutine(Tembror());
-                puntuacionManager.SumarPuntaje();
             }
             if (Input.GetMouseButtonDown(0))
             {
-                pivotDestroy.position -= new Vector3(0, numero, 0);
-                StartCoroutine(Animacion());
-                StartCoroutine(Tembror());
-                puntuacionManager.SumarPuntaje();
+                Temblor();
+                StartCoroutine(Comer());
+                Destroy(hit.collider.gameObject);
             }
-
-            box2D.enabled = true;
         }
-
     }
 
     IEnumerator Tembror()
@@ -78,23 +84,29 @@ public class Monstruo : MonoBehaviour
         camara.localPosition = originalPos;
         temblor = false;
     }
-    IEnumerator Animacion()
+    IEnumerator Comer()
     {
-        ani.SetBool("Activar", true);
-        yield return new WaitForSeconds(0.3f);
-        ani.SetBool("Activar", false);
+        aniBoca.SetBool("Comer", true);
+        yield return new WaitForSeconds(0.25f);
+        aniBoca.SetBool("Comer", false);
+        Comida();
     }
-    IEnumerator Activar()
+    IEnumerator AparecerComida()
     {
-        yield return new WaitForSeconds(0.5f);
-        activarTap = true;
+        hit.collider.transform.position = pivotScore.position;
+        hit.collider.transform.parent = pivotScore;
+        hit.collider.transform.localPosition = Vector3.zero;
+        aniComida.SetBool("Activar", true);
+        yield return new WaitForSeconds(0.25f);
+        aniComida.SetBool("Activar", false);
+    }
+    public void Comida()
+    {
+        StartCoroutine(AparecerComida());
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void Temblor()
     {
-        if (collision.gameObject.CompareTag("Score"))
-        {
-            Destroy(collision.gameObject);
-        }
+        StartCoroutine(Tembror());
     }
 }

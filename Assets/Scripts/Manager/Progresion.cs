@@ -18,12 +18,12 @@ public class Progresion : MonoBehaviour
     {
         if (puntuacion.masDificultad)
         { 
-            //Arriba
+            //Derecha
             if (puntuacion.nivel == 3)
             {
                 nivelManager.scores.Add(scores[0]);             
             }
-            //Abajo
+            //Izquierda
             if (puntuacion.nivel == 4)
             {
                 nivelManager.scores.Add(scores[1]);

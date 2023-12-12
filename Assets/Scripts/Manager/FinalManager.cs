@@ -17,7 +17,7 @@ public class FinalManager : MonoBehaviour
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
             {
                 destruir = true;
-                puntuacionManager.SumarPuntaje();
+                puntuacionManager.SumarPuntajeAbajo();
             }
         }
     }

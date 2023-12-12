@@ -6,9 +6,8 @@ using UnityEngine.UI;
 public class NivelManager : MonoBehaviour
 {
     public List<GameObject> scores = new List<GameObject>();
-    public Transform pivotSpawn;
-    public Transform pivotDestroy;
     public PuntuacionManager puntuacionManager;
+    public Monstruo monstruo;
 
     [Header("Barra Temporizador")]
     public Image barra;
@@ -17,32 +16,21 @@ public class NivelManager : MonoBehaviour
     float t = 10;
 
     [Header("Mover")]
+    public Transform pivotMover;
     public AnimationCurve curve;
     public float smoothTime;
-    public bool abajo;
     Vector3 velocity = Vector3.zero;
 
     [Header("Derrota")]
-    public GameObject panArriba;
-    public GameObject tenedor;
+    public Animator camara;
     public bool desactivar;
 
     void Update()
     {
-        if (!abajo)
-        {
-            Vector3 a = transform.position;
-            Vector3 b = new Vector3(pivotSpawn.position.x, pivotSpawn.position.y, transform.position.z);
-            Vector3 pos = Vector3.SmoothDamp(a, b, ref velocity, smoothTime);
-            transform.position = pos;
-        }
-        if (abajo)
-        {
-            Vector3 a = transform.position;
-            Vector3 b = new Vector3(pivotDestroy.position.x, pivotDestroy.position.y, transform.position.z);
-            Vector3 pos = Vector3.SmoothDamp(a, b, ref velocity, smoothTime);
-            transform.position = pos;
-        }
+        Vector3 a = transform.position;
+        Vector3 b = new Vector3(pivotMover.position.x, pivotMover.position.y, transform.position.z);
+        Vector3 pos = Vector3.SmoothDamp(a, b, ref velocity, smoothTime);
+        transform.position = pos;
 
         if (temporizador)
         {
@@ -61,41 +49,41 @@ public class NivelManager : MonoBehaviour
     public void Victoria(string direccion)
     {
         Debug.Log("Victoria");
-        pivotSpawn.position += new Vector3(0, 1.08f, 0);
-        puntuacionManager.SumarPuntaje();
+        pivotMover.position += new Vector3(0, 0.785f, 0);
+        puntuacionManager.SumarPuntajeAbajo();
         int aleatorio = Random.Range(0, scores.Count);
 
         if (direccion == "Derecha")
         {
-            Instantiate(scores[aleatorio], pivotSpawn.position, Quaternion.identity);
+            Instantiate(scores[aleatorio], pivotMover.position, Quaternion.identity);
         }
         if (direccion == "Izquierda")
         {
-            Instantiate(scores[aleatorio], pivotSpawn.position, Quaternion.identity);
+            Instantiate(scores[aleatorio], pivotMover.position, Quaternion.identity);
         }
         if (direccion == "Arriba")
         {
-            Instantiate(scores[aleatorio], pivotSpawn.position, Quaternion.identity);
+            Instantiate(scores[aleatorio], pivotMover.position, Quaternion.identity);
         }
         if (direccion == "Abajo")
         {
-            Instantiate(scores[aleatorio], pivotSpawn.position, Quaternion.identity);
+            Instantiate(scores[aleatorio], pivotMover.position, Quaternion.identity);
         }
         if (direccion == "Arriba Derecha")
         {
-            Instantiate(scores[aleatorio], pivotSpawn.position, Quaternion.identity);
+            Instantiate(scores[aleatorio], pivotMover.position, Quaternion.identity);
         }
         if (direccion == "Arriba Izquierda")
         {
-            Instantiate(scores[aleatorio], pivotSpawn.position, Quaternion.identity);
+            Instantiate(scores[aleatorio], pivotMover.position, Quaternion.identity);
         }
         if (direccion == "Abajo Derecha")
         {
-            Instantiate(scores[aleatorio], pivotSpawn.position, Quaternion.identity);
+            Instantiate(scores[aleatorio], pivotMover.position, Quaternion.identity);
         }
         if (direccion == "Abajo Izquierda")
         {
-            Instantiate(scores[aleatorio], pivotSpawn.position, Quaternion.identity);
+            Instantiate(scores[aleatorio], pivotMover.position, Quaternion.identity);
         }
 
         t = 10;
@@ -104,17 +92,15 @@ public class NivelManager : MonoBehaviour
     public void Derrota()
     {
         Debug.Log("Derrota");
-        StartCoroutine(Satisfaccion());
-
-        abajo = true;
+        StartCoroutine(ActivarMonstruo());
+    }
+    IEnumerator ActivarMonstruo()
+    {
+        camara.SetBool("Monstruo", true);
         desactivar = false;
         temporizador = false;
-    }
-    IEnumerator Satisfaccion()
-    {
-        panArriba.SetActive(true);
-        yield return new WaitForSeconds(0.15f);
-        pivotDestroy.position += new Vector3(0, 3f, 0);
-        tenedor.SetActive(true);
+        yield return new WaitForSeconds(1.20f);
+        monstruo.activarTap = true;
+        monstruo.Comida();
     }
 }
